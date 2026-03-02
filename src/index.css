@@ -5,10 +5,23 @@
 :root {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
     Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-
+  background-color: #f3f4f4;
   /* color-scheme: light dark; */
   color: #1a202c;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+@layer components {
+  .input-label {
+    @apply block text-sm text-gray-500 font-medium;
+  }
+
+  .input {
+    @apply border border-gray-200 rounded-lg w-full p-4;
+  }
+
+  .btn {
+  }
 }

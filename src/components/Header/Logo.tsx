@@ -2,8 +2,8 @@ const Logo = () => {
   return (
     <svg xmlns="http://www.w3.org" viewBox="0 0 100 100" width="70" height="70">
       <linearGradient id="bgrad" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" style={{ stopColor: "#8a2be2", stopOpacity: 1 }} />
-        <stop offset="100%" style={{ stopColor: "#ff1493", stopOpacity: 1 }} />
+        <stop offset="0%" style={{ stopColor: "#0D0D0D", stopOpacity: 1 }} />
+        <stop offset="100%" style={{ stopColor: "#282828", stopOpacity: 1 }} />
       </linearGradient>
       <path
         d="M30 20 L70 20 L85 40 L45 40 Z"
