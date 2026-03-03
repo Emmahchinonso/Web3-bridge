@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@headlessui/react": "^2.2.9",
+    "classnames": "^2.5.1",
     "ethers": "^6.16.0",
     "formik": "^2.4.9",
     "react": "^19.2.0",

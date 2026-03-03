@@ -1,6 +1,6 @@
-import type { SupportedChain } from "../types/chains";
+import type { SupportedNetwork } from "../types/chains";
 
-export const SUPPORTED_CHAINS: SupportedChain[] = [
+export const SUPPORTED_NETWORKS: SupportedNetwork[] = [
   {
     chainId: 11155111,
     name: "Sepolia",
@@ -47,8 +47,10 @@ export const SUPPORTED_CHAINS: SupportedChain[] = [
   },
 ];
 
-const CHAIN_ID_MAP = new Map<number, SupportedChain>();
-SUPPORTED_CHAINS.forEach((chain) => CHAIN_ID_MAP.set(chain.chainId, chain));
+const CHAIN_ID_MAP = new Map<number, SupportedNetwork>();
+SUPPORTED_NETWORKS.forEach((chain) => CHAIN_ID_MAP.set(chain.chainId, chain));
 export { CHAIN_ID_MAP };
 
 export const DEFAULT_CHAIN_ID = 97;
+
+export const DISCONNECT_KEY = "user_disconnected";

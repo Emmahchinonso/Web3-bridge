@@ -3,17 +3,13 @@ import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
 import { walletService } from "../services/WalletService";
 import type { WalletState } from "../lib/types/wallet";
+import { DEFAULT_CHAIN_ID } from "../lib/constants/chains";
 
 // Only persist UI preferences, NOT wallet state
 interface WalletUIState {
-  // UI preferences (safe to persist)
-  preferredChainId: number | null;
+  preferredChainId: number;
   hasConnectedBefore: boolean;
-
-  // Volatile UI state
   isModalOpen: boolean;
-
-  // Actions
   setPreferredChain: (chainId: number) => void;
   setModalOpen: (open: boolean) => void;
 }
@@ -21,17 +17,18 @@ interface WalletUIState {
 export const useWalletUIStore = create<WalletUIState>()(
   persist(
     (set) => ({
-      preferredChainId: null,
+      preferredChainId: DEFAULT_CHAIN_ID,
       hasConnectedBefore: false,
       isModalOpen: false,
 
-      setPreferredChain: (chainId) => set({ preferredChainId: chainId }),
+      setPreferredChain: (chainId) => {
+        set({ preferredChainId: chainId });
+      },
       setModalOpen: (open) => set({ isModalOpen: open }),
     }),
     {
       name: "wallet-preferences",
       storage: createJSONStorage(() => localStorage),
-      // Only persist these fields:
       partialize: (state) => ({
         preferredChainId: state.preferredChainId,
         hasConnectedBefore: state.hasConnectedBefore,

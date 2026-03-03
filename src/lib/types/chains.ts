@@ -1,4 +1,4 @@
-export type SupportedChain = {
+export type SupportedNetwork = {
   chainId: number;
   name: string;
   rpcUrl: string;

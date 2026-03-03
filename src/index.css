@@ -30,6 +30,11 @@
     @apply outline-black;
   }
 
-  .btn {
+  .flex-between {
+    @apply flex items-center justify-between;
+  }
+
+  .ellipsis {
+    @apply truncate;
   }
 }

@@ -4,8 +4,13 @@ import { useWalletStore, useWalletUIStore } from "../store/walletStore";
 import { walletService } from "../services/WalletService";
 
 export function useWallet() {
-  const wallet = useWalletStore();
-  const ui = useWalletUIStore();
+  const address = useWalletStore((s) => s.address);
+  const chainId = useWalletStore((s) => s.chainId);
+  const isConnected = useWalletStore((s) => s.isConnected);
+  const isConnecting = useWalletStore((s) => s.isConnecting);
+  const error = useWalletStore((s) => s.error);
+
+  const setPreferredChain = useWalletUIStore((s) => s.setPreferredChain);
 
   // Initialize on mount (handles reload/uninstall detection)
   useEffect(() => {
@@ -15,23 +20,23 @@ export function useWallet() {
   const connect = async () => {
     await walletService.connect();
     if (walletService.getState().isConnected) {
-      ui.setPreferredChain(walletService.getState().chainId || 1);
+      setPreferredChain(walletService.getState().chainId || 1);
     }
   };
 
   const disconnect = () => walletService.disconnect();
 
-  const switchChain = (chainId: number) => {
-    walletService.switchChain(chainId);
-    ui.setPreferredChain(chainId);
+  const switchChain = async (chainId: number) => {
+    await walletService.switchChain(chainId);
+    setPreferredChain(chainId);
   };
 
   return {
-    address: wallet.address,
-    chainId: wallet.chainId,
-    isConnected: wallet.isConnected,
-    isConnecting: wallet.isConnecting,
-    error: wallet.error,
+    address,
+    chainId,
+    isConnected,
+    isConnecting,
+    error,
     connect,
     disconnect,
     switchChain,

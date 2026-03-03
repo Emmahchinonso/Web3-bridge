@@ -1,6 +1,6 @@
 import { ethers } from "ethers";
-import { DEFAULT_CHAIN_ID } from "../lib/constants/chains";
 import type { WalletState } from "../lib/types/wallet";
+import { DISCONNECT_KEY } from "../lib/constants/chains";
 
 class WalletService {
   private provider: ethers.BrowserProvider | null = null;
@@ -25,9 +25,11 @@ class WalletService {
 
   private notify() {
     this.listeners.forEach((cb) => cb(this.state));
+    console.log("Has notifiied");
   }
 
   private setState(partial: Partial<WalletState>) {
+    console.log("Is Updating state");
     this.state = { ...this.state, ...partial };
     this.notify();
   }
@@ -37,13 +39,10 @@ class WalletService {
       throw new Error("MetaMask not installed");
     }
 
-    return new ethers.BrowserProvider(window.ethereum, {
-      name: "unknown",
-      chainId: DEFAULT_CHAIN_ID,
-    });
+    return new ethers.BrowserProvider(window.ethereum);
   };
 
-  async init() {
+  async init(preferredChainId?: number) {
     if (typeof window === "undefined") return;
 
     if (!window.ethereum) {
@@ -56,13 +55,37 @@ class WalletService {
 
       // checks  for previous connection
       const accounts = await browserProvider.listAccounts();
+
+      const userDisconnected = localStorage.getItem(DISCONNECT_KEY) === "true";
+      if (userDisconnected) {
+        this.setState({
+          provider: browserProvider,
+          isConnected: false,
+        });
+        return;
+      }
+
       if (accounts.length > 0) {
         const signer = await browserProvider.getSigner();
         const network = await browserProvider.getNetwork();
+        const currentChainId = Number(network.chainId);
         const address = await signer.getAddress();
 
         this.provider = browserProvider;
         this.signer = signer;
+
+        if (preferredChainId && currentChainId !== preferredChainId) {
+          // Try to switch to preferred chain
+          try {
+            await this.switchChain(preferredChainId);
+            this.init();
+            return;
+          } catch (error: any) {
+            // User rejected switch or chain not added
+            console.warn("Failed to switch to preferred chain");
+            console.log("error", error);
+          }
+        }
 
         this.setState({
           address,
@@ -72,8 +95,8 @@ class WalletService {
           isConnected: true,
           error: null,
         });
-
-        this.setupEventListeners(browserProvider);
+        console.log(this.state);
+        this.setupEventListeners();
       } else {
         this.setState({
           provider: browserProvider,
@@ -92,7 +115,6 @@ class WalletService {
 
     try {
       const browserProvider = this.getBrowserProvider();
-
       await browserProvider.send("eth_requestAccounts", []);
 
       const signer = await browserProvider.getSigner();
@@ -101,6 +123,8 @@ class WalletService {
 
       this.provider = browserProvider;
       this.signer = signer;
+
+      localStorage.removeItem(DISCONNECT_KEY);
 
       this.setState({
         address,
@@ -112,8 +136,9 @@ class WalletService {
         error: null,
       });
 
-      this.setupEventListeners(browserProvider);
+      this.setupEventListeners();
     } catch (error: any) {
+      console.log("error_connecting", error);
       this.setState({
         isConnecting: false,
         error: error.message || "Connection rejected",
@@ -123,8 +148,10 @@ class WalletService {
 
   async disconnect() {
     if (this.provider) {
-      this.provider?.removeAllListeners?.();
+      (window.ethereum as any)?.removeAllListeners?.();
     }
+    localStorage.setItem(DISCONNECT_KEY, "true");
+
     this.provider = null;
     this.signer = null;
 
@@ -165,25 +192,26 @@ class WalletService {
     return await this.signer.signMessage(message);
   }
 
-  private setupEventListeners(provider: ethers.BrowserProvider) {
-    if (!provider) return;
+  private setupEventListeners() {
+    if (!window.ethereum) return;
 
-    provider.on("accountsChanged", (accounts: string[]) => {
+    (window.ethereum as any).removeAllListeners();
+
+    (window.ethereum as any).on("accountsChanged", (accounts: string[]) => {
       if (accounts.length === 0) {
         this.disconnect();
       } else {
         this.init();
-        this.connect();
       }
     });
 
-    provider.on("chainChanged", (chainId: string) => {
+    (window.ethereum as any).on("chainChanged", (chainId: string) => {
       this.setState({ chainId: parseInt(chainId, 16) });
       // todo: Add check for supported chainId, and a way to update provider
       window.location.reload();
     });
 
-    provider.on("disconnect", (error: any) => {
+    (window.ethereum as any).on("disconnect", (error: any) => {
       console.log(error);
       this.disconnect();
     });
