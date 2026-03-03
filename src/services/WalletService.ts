@@ -87,7 +87,7 @@ class WalletService {
     }
   }
 
-  async connectWallet(id?: number) {
+  async connect() {
     this.setState({ isConnecting: true, error: null });
 
     try {
@@ -121,7 +121,7 @@ class WalletService {
     }
   }
 
-  async disconnectWallet() {
+  async disconnect() {
     if (this.provider) {
       this.provider?.removeAllListeners?.();
     }
@@ -169,10 +169,10 @@ class WalletService {
 
     provider.on("accountsChanged", (accounts: string[]) => {
       if (accounts.length === 0) {
-        this.disconnectWallet();
+        this.disconnect();
       } else {
         this.init();
-        this.connectWallet();
+        this.connect();
       }
     });
 
@@ -184,7 +184,7 @@ class WalletService {
 
     provider.on("disconnect", (error: any) => {
       console.log(error);
-      this.disconnectWallet();
+      this.disconnect();
     });
   }
 
