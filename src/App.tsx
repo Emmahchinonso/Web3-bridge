@@ -5,7 +5,7 @@ function App() {
   return (
     <>
       <Header />
-      <main className="mt-4 px-4">
+      <main className="mt-10 px-4">
         <div className="">
           <section className="text-center">
             <h1 className="mb-10 font-semibold text-2xl text-gray-600">
