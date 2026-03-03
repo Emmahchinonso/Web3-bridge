@@ -144,6 +144,7 @@ class WalletService {
     if (!this.signer || !window.ethereum) return;
 
     try {
+      // todo: Add check for supported chainId and throw error
       window.ethereum.request({
         method: "wallet_switchEthereumChain",
         params: [{ chainId: `0x${chainId.toString(16)}` }],
