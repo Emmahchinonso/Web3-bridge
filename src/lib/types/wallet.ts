@@ -11,7 +11,7 @@ export interface WalletState {
 }
 
 export interface Asset {
-  id: string;
+  id: number;
   name: string;
-  amount: string;
+  amount: number;
 }

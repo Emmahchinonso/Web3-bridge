@@ -51,6 +51,6 @@ const CHAIN_ID_MAP = new Map<number, SupportedNetwork>();
 SUPPORTED_NETWORKS.forEach((chain) => CHAIN_ID_MAP.set(chain.chainId, chain));
 export { CHAIN_ID_MAP };
 
-export const DEFAULT_CHAIN_ID = 97;
+export const DEFAULT_CHAIN_ID = 11155111;
 
 export const DISCONNECT_KEY = "user_disconnected";

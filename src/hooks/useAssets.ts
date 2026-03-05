@@ -5,8 +5,9 @@ import type { Asset } from "../lib/types/wallet";
 import { contractService } from "../services/ContractService";
 import { useWalletStore } from "../store/walletStore";
 
-const useContract = () => {
+const useAssets = () => {
   const signer = useWalletStore((store) => store.signer);
+  const address = useWalletStore((store) => store.address);
   const contract = contractService.getContract(
     CONTRACT_ADDRESS,
     Web3LinkABI,
@@ -16,6 +17,10 @@ const useContract = () => {
   const fetchAssets = async () => {
     if (!signer) {
       throw new Error(WALLET_ERRORS.WALLET_NOT_CONNECTED);
+    }
+    if (!(await contract.hasClaimed(address))) {
+      const tx = await contract.claimStarterAssets();
+      await tx?.wait();
     }
     const assets: Asset[] = await contract.getAssets();
 
@@ -40,4 +45,4 @@ const useContract = () => {
   };
 };
 
-export default useContract;
+export default useAssets;

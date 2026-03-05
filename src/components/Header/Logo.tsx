@@ -1,6 +1,6 @@
 const Logo = () => {
   return (
-    <svg xmlns="http://www.w3.org" viewBox="0 0 100 100" width="70" height="70">
+    <svg xmlns="http://www.w3.org" viewBox="30 20 55 60" width="50" height="50">
       <linearGradient id="bgrad" x1="0%" y1="0%" x2="100%" y2="100%">
         <stop offset="0%" style={{ stopColor: "#0D0D0D", stopOpacity: 1 }} />
         <stop offset="100%" style={{ stopColor: "#282828", stopOpacity: 1 }} />

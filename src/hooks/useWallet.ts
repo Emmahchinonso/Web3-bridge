@@ -1,5 +1,4 @@
 // hooks/useWallet.ts
-import { useEffect } from "react";
 import { useWalletStore, useWalletUIStore } from "../store/walletStore";
 import { walletService } from "../services/WalletService";
 import { CHAIN_ID_MAP, DEFAULT_CHAIN_ID } from "../lib/constants/chains";
@@ -12,11 +11,6 @@ export function useWallet() {
   const error = useWalletStore((s) => s.error);
 
   const setPreferredChain = useWalletUIStore((s) => s.setPreferredChain);
-
-  // Initialize on mount (handles reload/uninstall detection)
-  useEffect(() => {
-    walletService.init();
-  }, []);
 
   const connect = async () => {
     const { chainId, isConnected } = walletService.getState();
