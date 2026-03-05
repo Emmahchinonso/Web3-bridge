@@ -78,7 +78,7 @@ const Main = () => {
           <form onSubmit={formik.handleSubmit}>
             {status !== TX_STATUS.IDLE ? (
               <p
-                className={`text-sm rounded-md p-3 mb-4 ${txStatusInfo[status].className}`}
+                className={`text-sm rounded-md p-3 mb-4 font-medium ${txStatusInfo[status].className}`}
               >
                 {txStatusInfo[status].message}
               </p>
