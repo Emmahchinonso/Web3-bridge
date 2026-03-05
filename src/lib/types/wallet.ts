@@ -9,3 +9,9 @@ export interface WalletState {
   isConnecting: boolean;
   error: string | null;
 }
+
+export interface Asset {
+  id: string;
+  name: string;
+  amount: string;
+}
