@@ -20,6 +20,24 @@ The goal of the project is to demonstrate a simple Web3 interaction flow includi
 
 ---
 
+# Screenshots / Demo
+
+![Wallet Connection](screenshots/web-app.png)
+
+![On-connected](screenshots/onconnected.png)
+
+![address-validation](screenshots/address-validation.png)
+
+![Inputs validation](screenshots/user-input-error.png)
+
+![Transaction Processing](screenshots/transaction-processing.png)
+
+![User rejected transaction](screenshots/user-rejection.png)
+
+![Transaction confirmed](screenshots/transaction-confirmed.png)
+
+---
+
 # Folder Structure
 
 ```
@@ -286,26 +304,6 @@ Basic infrastructure was added for **multi-chain support**, including:
 - Chain configuration constants
 - Network selection UI
 - Chain switching through MetaMask
-
----
-
-# Screenshots / Demo
-
-```
-![Wallet Connection](screenshots/web-app.png)
-
-![On-connected](screenshots/onconnected.png)
-
-![address-validation](screenshots/address-validation.png)
-
-![Inputs validation](screenshots/user-input-error.png)
-
-![Transaction Processing](screenshots/transaction-processing.png)
-
-![User rejected transaction](screenshots/user-rejection.png)
-
-![Transaction confirmed](screenshots/transaction-confirmed.png)
-```
 
 ---
 
