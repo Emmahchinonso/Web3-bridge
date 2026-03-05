@@ -34,6 +34,10 @@
     @apply flex items-center justify-between;
   }
 
+  .error-text {
+    @apply text-xs text-red-500 italic pl-0.5 block mt-1;
+  }
+
   .ellipsis {
     @apply truncate;
   }

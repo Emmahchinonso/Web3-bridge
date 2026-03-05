@@ -25,11 +25,9 @@ class WalletService {
 
   private notify() {
     this.listeners.forEach((cb) => cb(this.state));
-    console.log("Has notifiied");
   }
 
   private setState(partial: Partial<WalletState>) {
-    console.log("Is Updating state");
     this.state = { ...this.state, ...partial };
     this.notify();
   }
@@ -95,7 +93,6 @@ class WalletService {
           isConnected: true,
           error: null,
         });
-        console.log(this.state);
         this.setupEventListeners();
       } else {
         this.setState({
@@ -138,7 +135,6 @@ class WalletService {
 
       this.setupEventListeners();
     } catch (error: any) {
-      console.log("error_connecting", error);
       this.setState({
         isConnecting: false,
         error: error.message || "Connection rejected",

@@ -31,11 +31,11 @@ const useAssets = () => {
     }));
   };
 
-  async function transferAsset(to: string, assetId: string, amount: string) {
+  async function transferAsset(to: string, assetId: number, amount: string) {
     if (!signer) {
       throw new Error(WALLET_ERRORS.WALLET_NOT_CONNECTED);
     }
-    return await contract.transferAsset(to, assetId, amount);
+    return await contract.transferAsset(to, assetId, Number(amount));
   }
 
   return {
