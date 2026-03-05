@@ -54,3 +54,10 @@ export { CHAIN_ID_MAP };
 export const DEFAULT_CHAIN_ID = 11155111;
 
 export const DISCONNECT_KEY = "user_disconnected";
+
+export const TX_STATUS = {
+  IDLE: "IDLE",
+  PENDING: "PENDING",
+  SUCCESS: "SUCCESS",
+  ERROR: "ERROR",
+};

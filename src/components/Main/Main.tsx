@@ -6,13 +6,7 @@ import { sendFormSchema } from "../../lib/validationSchema";
 import classNames from "classnames";
 import { useState } from "react";
 import useAssets from "../../hooks/useAssets";
-
-const TX_STATUS = {
-  IDLE: "IDLE",
-  PENDING: "PENDING",
-  SUCCESS: "SUCCESS",
-  ERROR: "ERROR",
-};
+import { TX_STATUS } from "../../lib/constants/chains";
 
 const Main = () => {
   const { assets, setSelectedAsset, selectedAsset } = useAssetStore();
