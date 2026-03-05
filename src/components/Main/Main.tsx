@@ -44,10 +44,9 @@ const Main = () => {
       } catch (error: any) {
         setStatus(TX_STATUS.ERROR);
         if (error.code === "ACTION_REJECTED" || error.code === 4001) {
-          setStatusMessage("You rejected the transaction");
+          setStatusMessage("❌ You rejected the transaction");
           return;
         }
-        // console.error("error_sending_asset", error);
       }
     },
   });
@@ -55,7 +54,7 @@ const Main = () => {
 
   const txStatusInfo = {
     [TX_STATUS.ERROR]: {
-      message: "❌ Transaction failed. Please try again",
+      message: statusMessage || "❌ Transaction failed. Please try again",
       className: "text-red-800 bg-red-100",
     },
     [TX_STATUS.PENDING]: {
