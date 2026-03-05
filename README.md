@@ -119,9 +119,8 @@ The contract allows users to:
 
 ### Smart Contract Repository
 
-```
-https://github.com/Emmahchinonso/web3-bridge-contract
-```
+(https://github.com/Emmahchinonso/web3-bridge-contract)
+
 
 ---
 
