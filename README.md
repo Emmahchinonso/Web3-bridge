@@ -102,14 +102,14 @@ The contract allows users to:
 ### Smart Contract Repository
 
 ```
-https://github.com/YOUR_USERNAME/mock-asset-contract
+https://github.com/Emmahchinonso/web3-bridge-contract
 ```
 
 ---
 
 # Assumptions and Trade-offs
 
-Several assumptions were made due to time constraints.
+Several assumptions were made due to scope and requested functionalities.
 
 ### Wallet Support
 
