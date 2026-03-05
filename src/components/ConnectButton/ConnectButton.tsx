@@ -17,8 +17,7 @@ import ChevronDownIcon from "../Icons/ChevronDownIcon";
 import classNames from "classnames";
 
 const ConnectButton = () => {
-  const { address, isConnected, connect, disconnect, switchChain } =
-    useWallet();
+  const { address, isConnected, connect, disconnect } = useWallet();
   const prefferedChainId = useWalletUIStore((store) => store.preferredChainId);
   const setPreferredChain = useWalletUIStore(
     (store) => store.setPreferredChain
@@ -27,10 +26,11 @@ const ConnectButton = () => {
   const selectedNetwork = CHAIN_ID_MAP.get(prefferedChainId);
 
   const handleNetworkChange = (chainId: number) => {
-    if (isConnected) {
-      switchChain(chainId);
-      return;
-    }
+    // if (isConnected) {
+    //   // todo: handle logic for adding chains in walletService.switchChain,
+    //   // then switchChain(chainId);
+    //   return;
+    // }
     setPreferredChain(chainId);
   };
 
